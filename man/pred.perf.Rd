@@ -21,4 +21,3 @@ x <- rsemicts(100, pzero=0.4, cts.density="lnorm", cts.param=c(1,1))
 y <- rsemicts(100, pzero=0.4, cts.density="lnorm", cts.param=c(1,1))
 pred.perf(x, y)
 }
-

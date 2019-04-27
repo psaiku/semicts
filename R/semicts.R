@@ -60,23 +60,25 @@ rsemicts.old <- function(n, pzero = 0.5, cts.density = "truncnorm", cts.params =
   return(x)
 }
 
-#' Generates a random sample from a semi-continuous distribution. Currently,
+#' Generates a random sample from a semi-continuous distribution. Tested for
 #' truncated normal (truncnorm), log-normal (lnorm), and gamma distributions are
 #' supported for the continuous part of the distribution.
 #'
 #' @param n Number of random variables to generate
 #' @param pzero Point mass at 0
 #' @param cts.density Name of a continuous density with support on the positive real line. Supported values: truncnorm (default), lnorm, and gamma
-#' @param  cts.param An array containing the parameters for cts.density (default: c(1,1) for mean, standard deviation of truncated normal). For
+#' @param  cts.param A list containing the parameters for cts.density (default: list(a=0, b=Inf, mean = 0, sd=1) for mean, standard deviation of truncated normal). For
 #' log-normal, it should be an array containing meanlog, and sdlog of the distribution. For gamma,
 #' an array of shape, and rate values must be supplied.
 #' @return An array of semi-continuous random variables.
 #' @examples
-#' rsemicts(100, pzero=0.4, cts.density="lnorm", cts.param=c(1,1))
+#' rsemicts(100, pzero=0.4, cts.density="lnorm", cts.param=list(meanlog=0, sdlog=1))
+#' rsemicts(1000, pzero=0.6, cts.density="gamma", cts.param = list(shape=1, rate=1))
+#' rsemicts(100, pzero=0.6, cts.density="truncnorm", cts.param = list(a=0, b=Inf, mean = 0, sd=1))
 #' @export
 #' @import truncnorm
 rsemicts <- function(n, pzero = 0.5, r.func = NA, cts.density = "truncnorm",
-                      cts.param=list(), left.args=list(), right.args=list()) {
+                      cts.param=list(a=0, b=Inf, mean = 0, sd=1)) {
   if(pzero==0 & is.na(r.func)) {
     stop("Pr(Y=0) cannot be 0!")
   }
@@ -94,12 +96,12 @@ rsemicts <- function(n, pzero = 0.5, r.func = NA, cts.density = "truncnorm",
   idx <- which(x>0)
 
   fapp <- function(t, f, argss) {
-    return(do.call(f, append((u[t]-pzero)/(1-pzero), argss)))
+    return(do.call(f, c(list(p=(u[t]-pzero)/(1-pzero)), argss)))
   }
 
   if(length(idx)>0) {
     f <- match.fun(paste0("q", cts.density))
-    x[idx] <- apply(as.matrix(idx), 1, fapp, f, append(append(left.args, cts.param), right.args))
+    x[idx] <- apply(as.matrix(idx), 1, fapp, f, cts.param)
   }
   class(x) <- "semicts"
   return(x)

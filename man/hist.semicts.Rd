@@ -4,9 +4,9 @@
 \alias{hist.semicts}
 \title{Generates a histogram for the semi-continuous data provided}
 \usage{
-\method{hist}{semicts}(obj, xlab = "x", ylab = "Density", main = "",
-  cols = c(rgb(0, 0, 1, 0.5), rgb(1, 0, 0, 0.5)), legends = c("Intensity",
-  "Proportion of Zeros"))
+\method{hist}{semicts}(obj, xlab = "X", ylab = "Density", main = "",
+  cols = c(rgb(0, 0, 1, 0.5), rgb(1, 0, 0, 0.5)),
+  legends = c("Intensity", "Proportion of Zeros"))
 }
 \arguments{
 \item{obj}{an array of semi-continuous data}
@@ -28,7 +28,6 @@ histogram object
 Generates a histogram for the semi-continuous data provided
 }
 \examples{
-x <- rsemicts(100, pzero=0.4, cts.density="lnorm", cts.param=c(1,1))
+x <- rsemicts(100, pzero=0.4, cts.density="lnorm", cts.params=c(1,1))
 hist(x)
 }
-

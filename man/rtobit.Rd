@@ -22,4 +22,3 @@ Generate a random sample from a latent normal distribution (tobit)
 \examples{
 rtobit(100)
 }
-

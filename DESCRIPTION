@@ -9,4 +9,4 @@ License: MIT + file LICENSE
 LazyData: TRUE
 Imports:
     truncnorm
-RoxygenNote: 5.0.1
+RoxygenNote: 6.1.1
