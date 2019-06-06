@@ -27,7 +27,3 @@ histogram object
 \description{
 Generates a histogram for the semi-continuous data provided
 }
-\examples{
-x <- rsemicts(100, pzero=0.4, cts.density="lnorm", cts.params=c(1,1))
-hist(x)
-}

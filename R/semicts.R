@@ -239,6 +239,7 @@ hist1.semicts <- function(obj, xlab="x", ylab="Density", main="",
 #' @param legends names for the legend as an array of two elements (has a default)
 #' @return histogram object
 #' @examples
+#' @export
 #' x <- rsemicts(100, pzero=0.4, cts.density="lnorm", cts.params=c(1,1))
 #' hist(x)
 hist.semicts <- function(obj, xlab="X", ylab="Density", main="",
